@@ -7,8 +7,8 @@ public class HeroRabbit: MonoBehaviour {
 	bool isGrounded = false;
 	bool JumpActive = false;
 	float JumpTime = 0f;
-	public float MaxJumpTime = 2f;
-	public float JumpSpeed = 2f;
+	public float MaxJumpTime = 5f;
+	public float JumpSpeed = 10f;
 	Rigidbody2D myBody = null;
 
 	// Use this for initialization
@@ -55,17 +55,17 @@ public class HeroRabbit: MonoBehaviour {
 		//Намалювати лінію (для розробника)
 		Debug.DrawLine (from, to, Color.red);	
 		
-		if(Input.GetAxis("Vertical")>0 && isGrounded) {
+		if(Input.GetButtonDown("Jump") && isGrounded) {
 			this.JumpActive = true;
 		}
 		if(this.JumpActive) {
 			animator.SetBool ("run", false);
 			//Якщо кнопку ще тримають
-			if(Input.GetAxis("Vertical")>0) {
+			if(Input.GetButtonDown("Jump")) {
 				this.JumpTime += Time.deltaTime;
 				if (this.JumpTime < this.MaxJumpTime) {
 					Vector2 vel = myBody.velocity;
-					vel.y = JumpSpeed * (1.0f - JumpTime / MaxJumpTime);
+					vel.y = JumpSpeed * (2.5f - JumpTime / MaxJumpTime);
 					myBody.velocity = vel;
 				}
 			} else {
@@ -78,6 +78,7 @@ public class HeroRabbit: MonoBehaviour {
 			animator.SetBool ("jump", false);
 		} else {
 			animator.SetBool ("jump", true);
+			animator.SetBool ("run", false);
 		}
 	}
 }
