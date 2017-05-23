@@ -28,6 +28,7 @@ public class HeroRabbit: MonoBehaviour {
 		float value = Input.GetAxis ("Horizontal");
 		Animator animator = GetComponent<Animator> ();
 		if (Mathf.Abs (value) > 0) {
+			if(isGrounded)
 			animator.SetBool ("run", true);
 			Vector2 vel = myBody.velocity;
 			vel.x = value * speed;
@@ -58,6 +59,7 @@ public class HeroRabbit: MonoBehaviour {
 			this.JumpActive = true;
 		}
 		if(this.JumpActive) {
+			animator.SetBool ("run", false);
 			//Якщо кнопку ще тримають
 			if(Input.GetAxis("Vertical")>0) {
 				this.JumpTime += Time.deltaTime;
