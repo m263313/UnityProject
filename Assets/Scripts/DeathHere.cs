@@ -11,8 +11,10 @@ public class DeathHere : MonoBehaviour {
 		HeroRabbit rabit = collider.GetComponent<HeroRabbit> ();
 		//Впасти міг не тільки кролик
 		if(rabit != null) {
+			rabit.transform.localScale= new UnityEngine.Vector3(1f,1f,0f);
 			//Повідомляємо рівень, про смерть кролика
 			LevelController.current.onRabbitDeath (rabit);
+
 		}
 	}
 }

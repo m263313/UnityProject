@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroRabbit: MonoBehaviour {
+	bool small;
 	public float speed = 1;
 	bool isGrounded = false;
 	bool JumpActive = false;
@@ -10,11 +11,15 @@ public class HeroRabbit: MonoBehaviour {
 	public float MaxJumpTime = 5f;
 	public float JumpSpeed = 10f;
 	Rigidbody2D myBody = null;
-
+	Transform heroParent = null;
+	float deathAnimationTime = 5f;
+	bool respawn=false;
 	// Use this for initialization
 	void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
 		LevelController.current.setStartPosition (transform.position);
+		this.heroParent = this.transform.parent;
+		small = true;
 	}
 
 	void Update()
@@ -24,10 +29,12 @@ public class HeroRabbit: MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		//[-1, 1]
-		 
 		float value = Input.GetAxis ("Horizontal");
 		Animator animator = GetComponent<Animator> ();
 		if (Mathf.Abs (value) > 0) {
+
+
+	
 			if(isGrounded)
 			animator.SetBool ("run", true);
 			Vector2 vel = myBody.velocity;
@@ -42,6 +49,7 @@ public class HeroRabbit: MonoBehaviour {
 		} else if(value > 0) {
 			sr.flipX = false;
 		}
+	//animator.SetBool ("die", false);
 		Vector3 from = transform.position + Vector3.up * 0.6f;
 		Vector3 to = transform.position + Vector3.down * 0.001f;
 		int layer_id = 1 << LayerMask.NameToLayer ("Ground");
@@ -50,7 +58,23 @@ public class HeroRabbit: MonoBehaviour {
 		if(hit) {
 			isGrounded = true;
 		} else {
+ 
 			isGrounded = false;
+		}
+		//Згадуємо ground check
+		layer_id= 1<<LayerMask.NameToLayer("MovingPlatform");
+		hit = Physics2D.Linecast(from, to,layer_id );
+		if(hit) {
+			isGrounded = true;
+			//Перевіряємо чи ми опинились на платформі
+			if(hit.transform != null
+				&& hit.transform.GetComponent<MovingPlatform>() != null){
+				//Приліпаємо до платформи
+				SetNewParent(this.transform, hit.transform);
+			}
+		} else {
+			//Ми в повітрі відліпаємо під платформи
+			SetNewParent(this.transform, this.heroParent);
 		}
 		//Намалювати лінію (для розробника)
 		Debug.DrawLine (from, to, Color.red);	
@@ -80,5 +104,50 @@ public class HeroRabbit: MonoBehaviour {
 			animator.SetBool ("jump", true);
 			animator.SetBool ("run", false);
 		}
+
+		//Death
+		if (deathAnimationTime >= 0.2f) {
+			deathAnimationTime -= Time.deltaTime;
+		} else {
+			animator.SetBool ("die", false);
+			if (respawn) {
+				respawn = false;
+				LevelController.current.onRabbitDeath (this);
+			}
+
+		}
+	
+	}
+
+	static void SetNewParent(Transform obj, Transform new_parent) {
+		if(obj.transform.parent != new_parent) {
+			//Засікаємо позицію у Глобальних координатах
+			Vector3 pos = obj.transform.position;
+			//Встановлюємо нового батька
+			obj.transform.parent = new_parent;
+			//Після зміни батька координати кролика зміняться
+			//Оскільки вони тепер відносно іншого об’єкта
+			//повертаємо кролика в ті самі глобальні координати
+			obj.transform.position = pos;
+		}
+	}
+	public bool isSmall(){
+		return small;
+	}
+	public void setSmall(bool value){
+		small = value;
+	}
+	public void  callDie(float time){
+		print ("begin of callDie");
+		Animator animator = GetComponent<Animator> ();
+		animator.SetBool ("die", true);
+		 
+		this.transform.localScale = new Vector3 (1f, 1f, 0);
+
+		print ("end of callDie");
+		deathAnimationTime = 1;
+		respawn = true;
+
+
 	}
 }
