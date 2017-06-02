@@ -13,9 +13,10 @@ public class HeroRabbit: MonoBehaviour {
 	Rigidbody2D myBody = null;
 	Transform heroParent = null;
 	float deathAnimationTime = 5f;
-	bool respawn=false;
-	// Use this for initialization
-	void Start () {
+	bool respawn = false;
+    public static HeroRabbit lastRabit = null;
+    // Use this for initialization
+    void Start () {
 		myBody = this.GetComponent<Rigidbody2D> ();
 		LevelController.current.setStartPosition (transform.position);
 		this.heroParent = this.transform.parent;
@@ -34,9 +35,9 @@ public class HeroRabbit: MonoBehaviour {
 		if (Mathf.Abs (value) > 0) {
 
 
-	
-			if(isGrounded)
-			animator.SetBool ("run", true);
+
+            if (isGrounded)
+                animator.SetBool("run", true);
 			Vector2 vel = myBody.velocity;
 			vel.x = value * speed;
 			myBody.velocity = vel;
@@ -150,4 +151,48 @@ public class HeroRabbit: MonoBehaviour {
 
 
 	}
+    public void callDie()
+    {
+        print("begin of callDie");
+        Animator animator = GetComponent<Animator>();
+        animator.SetBool("die", true);
+
+        this.transform.localScale = new Vector3(1f, 1f, 0);
+
+        print("end of callDie");
+        deathAnimationTime = 1;
+        respawn = true;
+
+
+    }
+    void Awake()
+    {
+        lastRabit = this;
+    }
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        //Намагаємося отримати компонент 
+        // SelfControl rabit = collider.GetComponent<SelfControl>();
+        OrcGreen orc = collider.GetComponent<OrcGreen>();
+       
+        if (orc != null)
+        {
+            if(collider==orc.head)
+            orc.callDie();
+            if (collider == orc.body)
+            {
+                orc.callPunch();
+                this.callDie();
+            }
+               
+        }
+        BrownOrc brownOrc = collider.GetComponent<BrownOrc>();
+        if (brownOrc != null)
+        {
+            if (collider == brownOrc.head)
+                brownOrc.callDie();
+
+        }
+    }
+
 }
