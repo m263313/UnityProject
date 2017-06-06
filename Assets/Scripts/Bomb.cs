@@ -4,7 +4,8 @@
 		if (rabit.isSmall ()) {
 			print ("begin of death");
 			rabit.callDie (10);
-			print ("end of death");
+       //     LevelController.current.onRabbitDeath(rabit);
+            print ("end of death");
 		}
 		else {
 			rabit.setSmall (true);

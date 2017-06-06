@@ -22,8 +22,12 @@ public class LevelController : MonoBehaviour {
 		this.startingPosition = pos;
 	}
 	public void onRabbitDeath(HeroRabbit rabit) {
-		//При смерті кролика повертаємо на початкову позицію
-		rabit.transform.position = this.startingPosition;
+        //При смерті кролика повертаємо на початкову позицію
+        rabit.transform.localScale = new Vector3(1f, 1f, 0);
+        rabit.setSmall(true);
+        if(LivesController.current!=null)
+        LivesController.current.death();
+        rabit.transform.position = this.startingPosition;
 
 	}
 }
