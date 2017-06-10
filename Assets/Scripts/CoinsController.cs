@@ -29,6 +29,9 @@ public class CoinsController : MonoBehaviour
     {
         totalCount++;
         updatePanel();
+        totalCount = PlayerPrefs.GetInt("coins", 0);
+        PlayerPrefs.SetInt("coins", totalCount);
+        PlayerPrefs.Save();
     }
     public void updatePanel()
     {
