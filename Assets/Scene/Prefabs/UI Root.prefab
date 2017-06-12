@@ -794,6 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083ebd81276e85742b2a86f629573903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  losePopUp: {fileID: 0}
   hearts:
   - {fileID: 114401577741614150}
   - {fileID: 114519278444437656}
@@ -945,6 +946,7 @@ MonoBehaviour:
   countOnPanel: {fileID: 114153174853881488}
   fruits:
   - {fileID: 0}
+  fruitsCollected: []
 --- !u!114 &114466427144230342
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,12 +5,13 @@ using System.Collections.Generic;
 public class CrystalController : MonoBehaviour
 {
 
-
+   
     //   public List<UI2DSprite> crystals;
     public static CrystalController current = null;
     public UI2DSprite greenObj;
     public UI2DSprite redObj;
     public UI2DSprite blueObj;
+    int leftCrystals =3;
     public  enum Crystals
     {
         green,
@@ -19,6 +20,7 @@ public class CrystalController : MonoBehaviour
     }
    public static Dictionary<Crystals, Sprite> mapCrystals;
     public static Dictionary<Crystals, UI2DSprite>mapObjects;
+
     public Sprite green;
     public Sprite red;
     public Sprite blue;
@@ -49,6 +51,11 @@ public class CrystalController : MonoBehaviour
     public void setCrystal(Crystal type)
     {
         mapObjects[type.type].sprite2D = mapCrystals[type.type];
+        leftCrystals--;
         
+    }
+    public bool isAll()
+    {
+        return leftCrystals == 0;
     }
 }

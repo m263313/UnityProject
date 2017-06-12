@@ -583,6 +583,12 @@ MonoBehaviour:
   backgroundButton: {fileID: 114306434077161588}
   musicButton: {fileID: 114584144978546348}
   soundButton: {fileID: 114013044146956130}
+  musicOffSprite: {fileID: 21300000, guid: 05d63ac62d0544d53a2005d0ceb838ea, type: 3}
+  musicOnSprite: {fileID: 21300000, guid: f0cf33b7ce34e41798c3899a84839cbd, type: 3}
+  soundOffSprite: {fileID: 21300000, guid: a96b3c306d8f54d59992608610fa8420, type: 3}
+  soundOnSprite: {fileID: 21300000, guid: 9d51c550af7f042448b0d69bc8f39958, type: 3}
+  soundBtnObj: {fileID: 1039659727999580}
+  musicBtnObj: {fileID: 1347309195831938}
 --- !u!114 &114495803964028242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -978,7 +984,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3012
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0

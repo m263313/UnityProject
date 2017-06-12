@@ -24,12 +24,13 @@ public class FinishLevel : MonoBehaviour
 
         if (rabbit != null)
         {
+            Time.timeScale = 0.0f;
             GameObject parent = UICamera.first.transform.parent.gameObject;
             GameObject obj = NGUITools.AddChild(parent, winPopUp);
-            (GameObject.Find("crystalPlace")).AddChild(GameObject.Find("crystalUI"));
-           (GameObject.Find("fruitsPlace")).AddChild(GameObject.Find("fritsUI"));
+
+             
             //Створити Prefab
-           
+
 
         }
         

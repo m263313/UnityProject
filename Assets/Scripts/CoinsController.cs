@@ -12,6 +12,7 @@ public class CoinsController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        totalCount =PlayerPrefs.GetInt("coins",0);
        // totalCount = fruits.Count;
         updatePanel();
     }
@@ -29,8 +30,9 @@ public class CoinsController : MonoBehaviour
     {
         totalCount++;
         updatePanel();
-        totalCount = PlayerPrefs.GetInt("coins", 0);
+
         PlayerPrefs.SetInt("coins", totalCount);
+     //   PlayerPrefs.SetInt("coins", totalCount);
         PlayerPrefs.Save();
     }
     public void updatePanel()

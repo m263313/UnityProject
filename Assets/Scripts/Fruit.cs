@@ -1,10 +1,17 @@
-﻿public class Fruit : Collectable {
+﻿[System.Serializable]
+public class Fruit : Collectable {
 
-	protected override void OnRabitHit (HeroRabbit rabit)
+    private void Start()
+    {
+        if (FruitController.current.fruitsCollected.Contains(this))
+            this.CollectedHide();
+    }
+    protected override void OnRabitHit (HeroRabbit rabit)
 	{
 
 		this.CollectedHide ();
         increase();
+        FruitController.current.fruitsCollected.Add(this);
 	}
     void increase()
     {

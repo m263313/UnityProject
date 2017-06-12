@@ -3,6 +3,8 @@ using System.Collections;
 
 public class OrcGreen : SelfControl
 {
+    public AudioClip attackSound = null;
+    AudioSource attackSource = null;
     public BoxCollider2D head;
     public BoxCollider2D body;
     float pause = 0.1f;
@@ -18,6 +20,9 @@ public class OrcGreen : SelfControl
     // Use this for initialization
     void Start()
     {
+
+        attackSource = gameObject.AddComponent<AudioSource>();
+        attackSource.clip = attackSound;
         pointA = this.transform.position;
         mode = Mode.GoToB;
         animator = GetComponent<Animator>();
@@ -90,6 +95,8 @@ public class OrcGreen : SelfControl
 
             if (mode == Mode.Attack)
             {
+                if (SoundManager.Instance.isSoundOn())
+                    attackSource.Play();
                 if (dir < 0.02f)
                 {
                     my_pos.x += step;

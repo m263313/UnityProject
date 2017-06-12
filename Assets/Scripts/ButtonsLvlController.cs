@@ -27,29 +27,52 @@ public class ButtonsLvlController : MonoBehaviour
         GameObject h;
         h = GameObject.Find("settingsPopUp");
         Destroy(h);
+        Time.timeScale = 1f;
     }
     void onMusic()
     {
        bool current= SoundManager.Instance.isMusicOn();
         
         SoundManager.Instance.setMusicOn(!current);
-        if (current)
-
-            musicBtnObj.GetComponent<UI2DSprite>().sprite2D = musicOnSprite;
+        if (!current)
+        {
+            musicBtnObj.GetComponent<UIButton>().disabledSprite2D = musicOnSprite;
+            musicBtnObj.GetComponent<UIButton>().hoverSprite2D = musicOnSprite;
+            musicBtnObj.GetComponent<UIButton>().normalSprite2D = musicOnSprite;
+            musicBtnObj.GetComponent<UIButton>().pressedSprite2D = musicOnSprite;
+        }
         else
-            musicBtnObj.GetComponent<UI2DSprite>().sprite2D = musicOffSprite;
-    }
+        {
+            
+            musicBtnObj.GetComponent<UIButton>().disabledSprite2D = musicOffSprite;
+            musicBtnObj.GetComponent<UIButton>().hoverSprite2D = musicOffSprite;
+            musicBtnObj.GetComponent<UIButton>().normalSprite2D = musicOffSprite;
+            musicBtnObj.GetComponent<UIButton>().pressedSprite2D = musicOffSprite;
+
+        }
+        }
+
     void onSound()
     {
 
         bool current = SoundManager.Instance.isSoundOn();
-
+        SoundManager s = SoundManager.Instance;
         SoundManager.Instance.setSoundOn(!current);
-        if (current)
-
-            soundBtnObj.GetComponent<UI2DSprite>().sprite2D = soundOnSprite;
+        if (!current)
+        {
+            soundBtnObj.GetComponent<UIButton>().disabledSprite2D = soundOnSprite;
+            soundBtnObj.GetComponent<UIButton>().hoverSprite2D = soundOnSprite;
+            soundBtnObj.GetComponent<UIButton>().normalSprite2D = soundOnSprite;
+            soundBtnObj.GetComponent<UIButton>().pressedSprite2D = soundOnSprite;
+        }
         else
-            soundBtnObj.GetComponent<UI2DSprite>().sprite2D = soundOffSprite;
+        {
+            soundBtnObj.GetComponent<UIButton>().disabledSprite2D = soundOffSprite;
+            soundBtnObj.GetComponent<UIButton>().hoverSprite2D = soundOffSprite;
+            soundBtnObj.GetComponent<UIButton>().normalSprite2D = soundOffSprite;
+            soundBtnObj.GetComponent<UIButton>().pressedSprite2D = soundOffSprite;
+            
+        }
     }
     void onPause()
     {

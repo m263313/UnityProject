@@ -1389,6 +1389,10 @@ MonoBehaviour:
   nextButton: {fileID: 114716852837153748}
   againButton: {fileID: 114721711705044666}
   backgroundButton: {fileID: 114906579297184738}
+  crystalRed: {fileID: 0}
+  crystalGreen: {fileID: 0}
+  crystalBlue: {fileID: 0}
+  fruitPanel: {fileID: 0}
 --- !u!114 &114516720755557438
 MonoBehaviour:
   m_ObjectHideFlags: 1

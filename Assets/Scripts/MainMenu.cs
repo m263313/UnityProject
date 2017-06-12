@@ -24,10 +24,10 @@ public class MainMenu : MonoBehaviour
             GameObject parent = UICamera.first.transform.parent.gameObject;
             //Створити Prefab
             GameObject obj = NGUITools.AddChild(parent, settingsPrefab);
-            
-            
-     
-   
+
+        Time.timeScale = 0.0f;
+
+
 
 
 

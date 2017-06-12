@@ -6,16 +6,23 @@ using System.Collections.Generic;
 public class FullSaver : MonoBehaviour
 {
     public static List<LevelStat> levelsInfo=new List<LevelStat>();
-    
+     
     // Use this for initialization
     void Start()
     {
         load();
-        for(int i = 0; i < 2; i++)
+        if (levelsInfo.Count == 0)
+            for (int i = 0; i < 2; i++)
+            {
+                levelsInfo.Add(new LevelStat());
+            }
+        
+                for (int i = 0; i < 2; i++)
         {
             if (levelsInfo[i] == null)
                 levelsInfo[i] = new LevelStat();
         }
+        
     }
 
     // Update is called once per frame
@@ -23,7 +30,7 @@ public class FullSaver : MonoBehaviour
     {
 
     }
-    void save()
+    public static void saveToDisk()
     {
         string str = JsonUtility.ToJson(levelsInfo);
         PlayerPrefs.SetString("level_stats", str);

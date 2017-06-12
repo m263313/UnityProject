@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LivesController : MonoBehaviour
 {
+  public  GameObject losePopUp;
     public static LivesController current = null;
     public const int maxLives = 3;
     int currentLives=maxLives;
@@ -47,7 +48,13 @@ public class LivesController : MonoBehaviour
     {
         if (currentLives <= 1)
         {
-            SceneManager.LoadScene("LevelChoice");
+            //Знайти батьківський елемент
+            GameObject parent = UICamera.first.transform.parent.gameObject;
+            //Створити Prefab
+            GameObject obj = NGUITools.AddChild(parent, losePopUp);
+
+            Time.timeScale = 0.0f;
+            // SceneManager.LoadScene("LevelChoice");
         }
 
         currentLives--;
