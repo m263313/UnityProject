@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class LivesController : MonoBehaviour
 {
-  public  GameObject losePopUp;
+    public GameObject losePopUp;
     public static LivesController current = null;
     public const int maxLives = 3;
-    int currentLives=maxLives;
+    int currentLives = maxLives;
     public List<UI2DSprite> hearts;
- 
+
     public Sprite full;
     public Sprite empty;
     // Use this for initialization
@@ -26,7 +26,7 @@ public class LivesController : MonoBehaviour
     }
     public void setLives(int lives)
     {
-        for(int i = 0; i < maxLives; i++)
+        for (int i = 0; i < maxLives; i++)
         {
             if (i < lives)
             {
@@ -59,4 +59,13 @@ public class LivesController : MonoBehaviour
 
         currentLives--;
     }
+    public void collectHeart()
+        {
+        if (currentLives<3)
+        {
+            currentLives++;
+        }
+
+        }
+
 }
