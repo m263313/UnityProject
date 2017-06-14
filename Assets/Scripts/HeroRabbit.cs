@@ -30,8 +30,7 @@ public class HeroRabbit : MonoBehaviour
     {
         walkSource = gameObject.AddComponent<AudioSource>();
         walkSource.clip = walkSound;
-        deathSource = gameObject.AddComponent<AudioSource>();
-        deathSource.clip = deathSound;
+        
         groundSource = gameObject.AddComponent<AudioSource>();
         groundSource.clip = groundSound;
         myBody = this.GetComponent<Rigidbody2D>();
@@ -53,8 +52,11 @@ public class HeroRabbit : MonoBehaviour
 
 
 
-            if (isGrounded)
+            if (isGrounded) { 
                 animator.SetBool("run", true);
+                if (SoundManager.Instance.isMusicOn())
+                    walkSource.Play();
+            }
             Vector2 vel = myBody.velocity;
             vel.x = value * speed;
             myBody.velocity = vel;
@@ -82,10 +84,7 @@ public class HeroRabbit : MonoBehaviour
         if (hit)
         {
             isGrounded = true;
-            if (SoundManager.Instance.isSoundOn())
-            {
-                walkSource.Play();
-            }
+           
         }
         else
         {
@@ -102,6 +101,11 @@ public class HeroRabbit : MonoBehaviour
             if (hit.transform != null
                 && hit.transform.GetComponent<MovingPlatform>() != null)
             {
+                if (SoundManager.Instance.isMusicOn())
+                {
+
+                    groundSource.Play();
+                }
                 //Приліпаємо до платформи
                 SetNewParent(this.transform, hit.transform);
             }
@@ -138,13 +142,10 @@ public class HeroRabbit : MonoBehaviour
                 this.JumpTime = 0;
             }
         }
-
+        
         if (this.isGrounded)
         {
-            if (SoundManager.Instance.isSoundOn())
-            {
-                groundSource.Play();
-            }
+           
             animator.SetBool("jump", false);
         }
         else
@@ -208,10 +209,7 @@ public class HeroRabbit : MonoBehaviour
         deathAnimationTime = 1;
         respawn = true;
 
-        if (SoundManager.Instance.isSoundOn())
-        { 
-            deathSource.Play();
-        }
+       
     }
     public void callDie()
     {
@@ -225,10 +223,7 @@ public class HeroRabbit : MonoBehaviour
         deathAnimationTime = 1;
         respawn = true;
 
-        if (SoundManager.Instance.isSoundOn())
-        {
-            deathSource.Play();
-        }
+      
     }
     void Awake()
     {

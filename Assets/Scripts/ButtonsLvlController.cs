@@ -31,7 +31,7 @@ public class ButtonsLvlController : MonoBehaviour
     }
     void onMusic()
     {
-       bool current= SoundManager.Instance.isMusicOn();
+        bool current= SoundManager.Instance.isMusicOn();
         
         SoundManager.Instance.setMusicOn(!current);
         if (!current)

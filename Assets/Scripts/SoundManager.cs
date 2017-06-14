@@ -13,10 +13,12 @@ public class SoundManager : MonoBehaviour
         musicSource = gameObject.AddComponent<AudioSource>();
         musicSource.clip = music;
         musicSource.loop = true;
-        musicSource.Play();
-          is_sound_on = PlayerPrefs.GetInt("sound", 1) == 1;
+      //  musicSource.Play();
+
+        is_sound_on = PlayerPrefs.GetInt("sound", 1) == 1;
         is_music_on= PlayerPrefs.GetInt("music", 1) == 1;
-       
+       if(is_sound_on)
+            musicSource.Play();
         Instance = this;
     }
     void Update()
@@ -38,10 +40,10 @@ public class SoundManager : MonoBehaviour
             musicSource.Pause();
         else
         {
-            musicSource.UnPause();
+            musicSource.Play();
         }
         //  PlayerPrefs.SetInt("sound", this.is_sound_on ? 1 : 0);
-        // PlayerPrefs.Save();
+             PlayerPrefs.Save();
     }
     public bool isMusicOn()
     {
@@ -56,7 +58,7 @@ public class SoundManager : MonoBehaviour
         this.is_music_on = val;
        
         //   PlayerPrefs.SetInt("music", this.is_music_on ? 1 : 0);
-        //   PlayerPrefs.Save();
+         PlayerPrefs.Save();
     }
     SoundManager()
     {

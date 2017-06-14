@@ -95,8 +95,7 @@ public class OrcGreen : SelfControl
 
             if (mode == Mode.Attack)
             {
-                if (SoundManager.Instance.isSoundOn())
-                    attackSource.Play();
+                
                 if (dir < 0.02f)
                 {
                     my_pos.x += step;
@@ -121,7 +120,8 @@ public class OrcGreen : SelfControl
             if (mode != Mode.Attack)
                 prev = mode;
             mode = Mode.Attack;
-            
+            if (SoundManager.Instance.isMusicOn())
+                attackSource.Play();
         }
         else
         if (mode == Mode.Attack)
@@ -132,6 +132,8 @@ public class OrcGreen : SelfControl
         }
         if (mode == Mode.Attack)
         {
+            if (SoundManager.Instance.isMusicOn())
+                attackSource.Play();
             //Move towards rabit
             if (my_pos.x < rabit_pos.x)
             {
@@ -187,7 +189,7 @@ public class OrcGreen : SelfControl
     }
     public void callPunch()
     {
-
+        
         Animator animator = GetComponent<Animator>();
         animator.SetTrigger("punch");
      //   animator.ResetTrigger("punch");

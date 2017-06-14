@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LivesController : MonoBehaviour
 {
+    public AudioClip deathSound = null;
+    AudioSource deathSource = null;
     public GameObject losePopUp;
     public static LivesController current = null;
     public const int maxLives = 3;
@@ -17,6 +19,8 @@ public class LivesController : MonoBehaviour
     void Start()
     {
         setLives(maxLives);
+        deathSource = gameObject.AddComponent<AudioSource>();
+        deathSource.clip = deathSound;
     }
 
     // Update is called once per frame
@@ -48,6 +52,8 @@ public class LivesController : MonoBehaviour
     {
         if (currentLives <= 1)
         {
+            if (SoundManager.Instance.isMusicOn())
+                deathSource.Play();
             //Знайти батьківський елемент
             GameObject parent = UICamera.first.transform.parent.gameObject;
             //Створити Prefab
@@ -58,6 +64,8 @@ public class LivesController : MonoBehaviour
         }
 
         currentLives--;
+        if (SoundManager.Instance.isMusicOn())
+            deathSource.Play();
     }
     public void collectHeart()
         {

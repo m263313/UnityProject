@@ -93,8 +93,7 @@ public class BrownOrc : SelfControl {
 
             if (mode == Mode.Attack)
             {
-                if (SoundManager.Instance.isSoundOn())
-                
+                if (SoundManager.Instance.isMusicOn())
                     attackSource.Play();
                 animator.SetBool("walk", false);
                 if (dir < 0.02f)
@@ -152,6 +151,8 @@ public class BrownOrc : SelfControl {
         Vector3 rabit_pos = HeroRabbit.lastRabit.transform.position;
         if (Mathf.Abs(my_pos.x- rabit_pos.x)<radius)
         {
+            if (SoundManager.Instance.isMusicOn())
+                attackSource.Play();
             if (mode != Mode.Attack)
                 prev = mode;
             mode = Mode.Attack;

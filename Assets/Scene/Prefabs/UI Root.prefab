@@ -794,6 +794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083ebd81276e85742b2a86f629573903, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathSound: {fileID: 0}
   losePopUp: {fileID: 0}
   hearts:
   - {fileID: 114401577741614150}
